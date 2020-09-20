@@ -56,6 +56,12 @@ def test_aged_brie_increases_in_quality(subject):
     subject.update_quality()
     assert subject.items[0].quality == 1
 
+def test_quality_not_above_50(subject):
+    items = [Item(name="Aged Brie", sell_in=2, quality=50)]
+    subject.items = items
+    subject.update_quality()
+    assert subject.items[0].quality == 50
+
 
 # At the end of each day our system lowers both 
 # values for every item
