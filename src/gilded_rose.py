@@ -35,6 +35,9 @@ class GildedRose:
                     if item.quality < 50:
                         item.quality = item.quality + 1
 
+    def clear(self):
+        self.items = None
+
 
 class Item:
     def __init__(self, name, sell_in, quality):
