@@ -44,6 +44,18 @@ def test_update_quality_x2_lowers_sell_in_by_2(subject):
     subject.update_quality()
     assert subject.items[0].sell_in == 8
 
+def test_quality_not_below_zero(subject):
+    items = [Item(name="+5 Dexterity Vest", sell_in=0, quality=0)]
+    subject.items = items
+    subject.update_quality()
+    assert subject.items[0].quality == 0
+
+def test_aged_brie_increases_in_quality(subject):
+    items = [Item(name="Aged Brie", sell_in=2, quality=0)]
+    subject.items = items
+    subject.update_quality()
+    assert subject.items[0].quality == 1
+
 
 # At the end of each day our system lowers both 
 # values for every item
