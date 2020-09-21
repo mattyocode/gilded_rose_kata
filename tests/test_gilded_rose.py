@@ -93,10 +93,10 @@ def test_backstage_pass_quality_increase_by_2(subject):
     assert subject.items[0].quality == 12
 
 def test_backstage_pass_quality_increase_by_3(subject):
-    items = [Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=5, quality=10)]
+    items = [Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=1, quality=10)]
     subject.items = items
     subject.update_quality()
-    assert subject.items[0].sell_in == 4
+    assert subject.items[0].sell_in == 0
     assert subject.items[0].quality == 13
 
 def test_backstage_pass_quality_drops_to_0(subject):
@@ -112,4 +112,7 @@ def test_backstage_pass_quality_not_above_50(subject):
     subject.update_quality()
     assert subject.items[0].sell_in == 4
     assert subject.items[0].quality == 50
+
+# "Conjured" items degrade in Quality 
+# twice as fast as normal items
 
