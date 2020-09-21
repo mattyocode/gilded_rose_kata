@@ -71,3 +71,16 @@ def test_sulfuras_dont_decrease_sell_in_or_quality(subject):
     subject.update_quality()
     assert subject.items[0].sell_in == 25
     assert subject.items[0].quality == 50 
+
+# "Backstage passes", like aged brie, increases in Quality 
+# as its SellIn value approaches;
+# - Quality increases by 2 when there are 10 days or less 
+# and by 3 when there are 5 days or less but
+# - Quality drops to 0 after the concert
+
+def test_backstage_passes_increase_towards_sell_in_by_1(subject):
+    items = [Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=20, quality=10)]
+    subject.items = items
+    subject.update_quality()
+    assert subject.items[0].sell_in == 19
+    assert subject.items[0].quality == 11
