@@ -62,6 +62,12 @@ def test_quality_not_above_50(subject):
     subject.update_quality()
     assert subject.items[0].quality == 50
 
+# Sulfuras", being a legendary item, never has 
+# to be sold or decreases in Quality
 
-# At the end of each day our system lowers both 
-# values for every item
+def test_sulfuras_dont_decrease_sell_in_or_quality(subject):
+    items = [Item(name="Sulfuras, Hand of Ragnaros", sell_in=25, quality=50)]
+    subject.items = items
+    subject.update_quality()
+    assert subject.items[0].sell_in == 25
+    assert subject.items[0].quality == 50 
