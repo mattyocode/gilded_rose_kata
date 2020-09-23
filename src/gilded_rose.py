@@ -18,25 +18,28 @@ class GildedRose:
 
     def update_brie(self, item):
         if item.quality < 50 and item.sell_in > 0:
-            item.quality = item.quality + 1
+            item.quality += 1
         elif item.quality < 50 and item.sell_in <= 0:
-            item.quality = item.quality + 2
-        item.sell_in = item.sell_in - 1
+            item.quality += 2
+        self.reduce_sell_in(item)
 
     def update_backstage(self, item):
         if item.quality < 50 and item.sell_in >= 11:
-            item.quality = item.quality + 1
+            item.quality += 1
         elif item.quality < 50 and 5 < item.sell_in < 11:
-            item.quality = item.quality + 2
+            item.quality += 2
         elif item.quality < 50 and item.sell_in < 6:
-            item.quality = item.quality + 3
-        item.sell_in = item.sell_in - 1
+            item.quality += 3
+        self.reduce_sell_in(item)
         if item.sell_in < 0:
             item.quality = 0
 
     def standard_update(self, item):
         if item.quality > 0 and item.quality < 50:
             item.quality -= 1
+        self.reduce_sell_in(item)
+
+    def reduce_sell_in(self,item):
         item.sell_in -= 1
 
 
