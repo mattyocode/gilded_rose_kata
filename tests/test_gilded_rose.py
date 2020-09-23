@@ -10,6 +10,10 @@ def subject():
     yield subject
     subject.clear()
 
+def test_item_returns_string():
+    item = Item(name="+5 Dexterity Vest", sell_in=10, quality=20)
+    assert item.__repr__() == "+5 Dexterity Vest, 10, 20"
+
 def test_has_name(subject):
     items = [Item(name="+5 Dexterity Vest", sell_in=10, quality=20)]
     subject.items = items
@@ -54,12 +58,21 @@ def test_aged_brie_increases_in_quality(subject):
     items = [Item(name="Aged Brie", sell_in=2, quality=0)]
     subject.items = items
     subject.update_quality()
+    assert subject.items[0].sell_in == 1
     assert subject.items[0].quality == 1
+
+def test_aged_brie_increases_in_quality_by_2_after_zero(subject):
+    items = [Item(name="Aged Brie", sell_in=0, quality=0)]
+    subject.items = items
+    subject.update_quality()
+    assert subject.items[0].sell_in == -1
+    assert subject.items[0].quality == 2
 
 def test_quality_not_above_50(subject):
     items = [Item(name="Aged Brie", sell_in=2, quality=50)]
     subject.items = items
     subject.update_quality()
+    assert subject.items[0].sell_in == 1
     assert subject.items[0].quality == 50
 
 # Sulfuras", being a legendary item, never has 
