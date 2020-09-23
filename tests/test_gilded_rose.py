@@ -126,6 +126,13 @@ def test_backstage_pass_quality_not_above_50(subject):
     assert subject.items[0].sell_in == 4
     assert subject.items[0].quality == 50
 
+def test_conjured_quality_decrease_2_per_day(subject):
+    items = [Item(name="Conjured", sell_in=10, quality=20)]
+    subject.items = items
+    subject.update_quality()
+    assert subject.items[0].sell_in == 9
+    assert subject.items[0].quality == 18
+
 # "Conjured" items degrade in Quality 
 # twice as fast as normal items
 
