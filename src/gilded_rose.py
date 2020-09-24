@@ -37,12 +37,12 @@ class GildedRose:
             item.quality = 0
 
     def standard_update(self, item):
-        if item.quality > 0 and item.quality < 50:
+        if 0 < item.quality < 50:
             item.quality -= 1
         self.reduce_sell_in(item)
 
     def update_conjured(self, item):
-        if item.quality > 0 and item.quality < 50:
+        if 0 < item.quality < 50:
             item.quality -= 2
         self.reduce_sell_in(item)       
 
