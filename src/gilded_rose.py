@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 class GildedRose:
 
     def __init__(self, items):
@@ -7,11 +6,11 @@ class GildedRose:
         self.assigner = ItemAssigner()
 
     def item_to_class(self, items):
-        items_as_class = []
-        for x in items:
-            x = self.assigner.assign_class(x.name, x.sell_in, x.quality)
-            items_as_class.append(x)
-        return items_as_class
+        items_reclassed = []
+        for item in items:
+            item = self.assigner.assign_class(item.name, item.sell_in, item.quality)
+            items_reclassed.append(item)
+        return items_reclassed
 
     def update_quality(self):
         self.items = self.item_to_class(self.items)
@@ -33,23 +32,21 @@ class ItemAssigner:
         if name == "Conjured":
             return Conjured(name, sell_in, quality)
         else:
-            return Standard(name, sell_in, quality)
+            return Item(name, sell_in, quality)
 
 class Item:
     def __init__(self, name, sell_in, quality):
         self.name = name
         self.sell_in = sell_in
         self.quality = quality
-
-    def __repr__(self):
-        return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
-
-class Standard(Item):
-
+    
     def update_quality(self):
         if 0 < self.quality < 50:
             self.quality -= 1
         self.sell_in -= 1
+
+    def __repr__(self):
+        return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
 
 class Conjured(Item):
 
